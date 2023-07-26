@@ -29,5 +29,38 @@ fs.writeFile(NAMES_PATH, "Mike Andrew Fernandez", () => {
 // Write to a non - existing file
 // This will work and will create the file for us
 fs.writeFile("./files/my-name.txt", "Mike Andrew Fernandez", () => {
-  console.log("Successfully written to the file!");
+  console.log("Successfully written to the new file!");
 });
+
+// Directories
+// Same behaviour
+if (!fs.existsSync("./assets")) {
+  // Create a directory if it does not exist
+  fs.mkdir("./assets", (err) => {
+    if (err) {
+      console.log(err.message);
+    }
+
+    console.log("Folder created");
+  });
+} else {
+  // Delete the directory if it already exist
+  fs.rmdir("./assets", (err) => {
+    if (err) {
+      console.log(err.message);
+    }
+    console.log("Folder removed!");
+  });
+}
+
+// Files
+// Same behaviour
+if (fs.existsSync("./files/my-name.txt")) {
+  // Delete a file
+  fs.unlink("./files/my-name.txt", (err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("File deleted!");
+  });
+}
