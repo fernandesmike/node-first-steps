@@ -1,1 +1,6 @@
-console.log("My new node eheheh");
+const greeting = (name) => {
+  console.log(`Hey there, ${name}`);
+};
+
+greeting("Mike");
+greeting("Joshua");
