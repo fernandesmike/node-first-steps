@@ -6,7 +6,13 @@
     <title>Some view</title>
   </head>
   <body>
-    <h1>Some title</h1>
+    <!-- Using EJS Templates, everythin will now be non-static contents -->
+    <!-- Dynamic HTML content using JS -->
+    <!-- This JS Code runs on the server not on the client side -->
+    <% const name = "Mike" %>
+
+    <!-- Output a value this way referencing whatever is inside the Template aboce -->
+    <h1><%= heading %> | My name's <%= name %>!</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius reiciendis
       minus, quas voluptatibus dignissimos saepe.
@@ -15,7 +21,7 @@
     <div>
       <ul>
         <li><a href="/account/create">Something</a></li>
-        <li><a href="">I dunno</a></li>
+        <li><a href="/blog">Blog</a></li>
         <li><a href="">Learn other things next</a></li>
         <li><a href="">Learn Unit testing next</a></li>
       </ul>

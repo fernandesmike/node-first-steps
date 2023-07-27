@@ -1,3 +1,6 @@
+// Sample blog data
+const { blogTitle, blogDate, blogDesc } = require("./json/blogs");
+
 const express = require("express");
 
 // Create the express app
@@ -16,8 +19,9 @@ app.set("views", "files");
 app.listen(3000);
 
 app.get("/", (req, res) => {
-  // Finds the specified views folder then locates the index file
-  res.render("index");
+  // Finds the specified views folder then locates the index file\
+  // 2nd parameter is for the data that needs to be passed inside the HTML
+  res.render("index", { heading: "My awesome title" });
 });
 
 app.get("/about", (req, res) => {
@@ -26,7 +30,17 @@ app.get("/about", (req, res) => {
 
 // Handler for create view
 app.get("/account/create", (req, res) => {
-  res.render("create");
+  const paragObj = [
+    { id: "1", content: "Lorem ipsum dolor sit amet consectetur" },
+    { id: "2", content: "ipsum dolor consectetur" },
+    { id: "3", content: "Lorem ipsum dolor sit amet " },
+  ]; 
+  res.render("create", { title: "My awesome self", paragObj });
+});
+
+app.get("/blog", (req, res) => {
+  // Passing an exported data from another module
+  res.render("blog", { blogTitle, blogDate, blogDesc });
 });
 
 app.use((req, res) => {
