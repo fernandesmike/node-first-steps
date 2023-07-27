@@ -3,6 +3,9 @@ const express = require("express");
 // Create the express app
 const app = express();
 
+// Set some settings for the app
+app.set("view engin", "ejs");
+
 // Now, listen for requests
 // equivalent to createServer()
 app.listen(3000);
