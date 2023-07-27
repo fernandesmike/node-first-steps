@@ -1,10 +1,14 @@
 // Serve an HTML file to the client
 const http = require("http");
 const fs = require("fs");
+const lod = require("lodash");
 
 const FILE_PATH = "./files/";
 
 const server = http.createServer((req, res) => {
+  const num = lod.random(0, 20);
+  console.log(num);
+
   // Always set the header of the response
   res.setHeader("Content-type", "text/html");
 
