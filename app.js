@@ -4,37 +4,31 @@ const express = require("express");
 const app = express();
 
 // Set some settings for the app
-app.set("view engin", "ejs");
+app.set("view engine", "ejs");
+// By default, EJS will find a folder named "views" and find the files to be rendered in there
+// But since, I am using a different folder name, this is how we set it
+// ---------
+// A view is just a dynamic HTML, in which content changes (non fixed HTML file)
+app.set("views", "files");
 
 // Now, listen for requests
 // equivalent to createServer()
 app.listen(3000);
 
-// URL to listen to, and Callback that takes Request and Response object
 app.get("/", (req, res) => {
-  // Automatically sets header
-  // Useful when sending raw texts
-  // res.send("<p> HOMEEE </p>");
-
-  // For sending  files
-  // Requires the file path, and root directory
-  res.sendFile("./files/index.html", { root: __dirname });
+  // Finds the specified views folder then locates the index file
+  res.render("index");
 });
 
-app.get("/login", (req, res) => {
-  res.sendFile("./files/login.html", { root: __dirname });
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
-// For redirections
-app.get("/redirect", (req, res) => {
-  // Automatically sets the status code
-  res.redirect("/login");
+// Handler for create view
+app.get("/account/create", (req, res) => {
+  res.render("create");
 });
 
-// What about with error 404 pages
-// Fires for every URL. It must be placed in the bottom to not overlap with other links
-// If none of the get(URL) methods above is catched, this will execute
 app.use((req, res) => {
-  // Specify that this is an error by specifying its status  code
-  res.status(404).sendFile("./files/404.html", { root: __dirname });
+  res.status(404).render("404");
 });
