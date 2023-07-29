@@ -6,21 +6,28 @@ const express = require("express");
 // Create the express app
 const app = express();
 
-// Set some settings for the app
 app.set("view engine", "ejs");
-// By default, EJS will find a folder named "views" and find the files to be rendered in there
-// But since, I am using a different folder name, this is how we set it
-// ---------
-// A view is just a dynamic HTML, in which content changes (non fixed HTML file)
 app.set("views", "files");
 
-// Now, listen for requests
-// equivalent to createServer()
 app.listen(3000);
 
+// Middlewares are just pieces of codes that run in the backend that intercepts between
+// incoming and outgoing HTTP objects
+app.use((req, res, next) => {
+  console.log("New request made");
+
+  // Without next(), the backend will get stuck in this use() method. It will never reach the code
+  // below, thus cannot handle requests that matches any of the get() methods below
+  next();
+});
+app.use((req, res, next) => {
+  console.log("New middleware after above");
+  // That is why order is important when using use() functions
+  next();
+  // This lets the code proceed to the next code below
+});
+
 app.get("/", (req, res) => {
-  // Finds the specified views folder then locates the index file\
-  // 2nd parameter is for the data that needs to be passed inside the HTML
   res.render("index", { heading: "My awesome title" });
 });
 
@@ -34,7 +41,7 @@ app.get("/account/create", (req, res) => {
     { id: "1", content: "Lorem ipsum dolor sit amet consectetur" },
     { id: "2", content: "ipsum dolor consectetur" },
     { id: "3", content: "Lorem ipsum dolor sit amet " },
-  ]; 
+  ];
   res.render("create", { title: "My awesome self", paragObj });
 });
 
