@@ -1,6 +1,6 @@
 // Sample blog data
 const { blogTitle, blogDate, blogDesc } = require("./json/blogs");
-
+const morgan = require("morgan");
 const express = require("express");
 
 // Create the express app
@@ -10,6 +10,9 @@ app.set("view engine", "ejs");
 app.set("views", "files");
 
 app.listen(3000);
+
+// Use the logger middlware
+app.use(morgan("dev"));
 
 // Middlewares are just pieces of codes that run in the backend that intercepts between
 // incoming and outgoing HTTP objects
