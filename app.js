@@ -2,14 +2,27 @@
 const { blogTitle, blogDate, blogDesc } = require("./json/blogs");
 const morgan = require("morgan");
 const express = require("express");
+const dbUri = require("./resource/conn");
+
+// Import mongoose
+const mongoose = require("mongoose");
 
 // Create the express app
 const app = express();
 
+// Connect to your db (async, promise)
+mongoose
+  .connect(dbUri)
+  .then((res) => {
+    // Only listen for requests when connection is established
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 app.set("view engine", "ejs");
 app.set("views", "files");
-
-app.listen(3000);
 
 // Use the logger middlware
 app.use(morgan("dev"));
