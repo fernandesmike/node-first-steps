@@ -1,6 +1,5 @@
 // Sample blog data
 const { blogTitle, blogDate, blogDesc } = require("./json/blogs");
-const morgan = require("morgan");
 const express = require("express");
 const dbUri = require("./resource/conn");
 
@@ -15,6 +14,7 @@ mongoose
   .connect(dbUri)
   .then((res) => {
     // Only listen for requests when connection is established
+    console.log("Connection success");
     app.listen(3000);
   })
   .catch((err) => {
@@ -24,24 +24,17 @@ mongoose
 app.set("view engine", "ejs");
 app.set("views", "files");
 
-// Use the logger middlware
-app.use(morgan("dev"));
-
-// Middlewares are just pieces of codes that run in the backend that intercepts between
-// incoming and outgoing HTTP objects
 app.use((req, res, next) => {
   console.log("New request made");
-
-  // Without next(), the backend will get stuck in this use() method. It will never reach the code
-  // below, thus cannot handle requests that matches any of the get() methods below
   next();
 });
+
 app.use((req, res, next) => {
   console.log("New middleware after above");
-  // That is why order is important when using use() functions
   next();
-  // This lets the code proceed to the next code below
 });
+
+// Route handlers
 
 app.get("/", (req, res) => {
   res.render("index", { heading: "My awesome title" });
