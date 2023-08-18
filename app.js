@@ -46,16 +46,6 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-// Handler for create view
-app.get("/account/create", (req, res) => {
-  const paragObj = [
-    { id: "1", content: "Lorem ipsum dolor sit amet consectetur" },
-    { id: "2", content: "ipsum dolor consectetur" },
-    { id: "3", content: "Lorem ipsum dolor sit amet " },
-  ];
-  res.render("create", { title: "My awesome self", paragObj });
-});
-
 app.use((req, res) => {
   res.status(404).render("404");
 });
