@@ -3,14 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Blog</title>
+    <title>My Blogs</title>
   </head>
   <body>
-    <div>
-      <h1><%= blogTitle %></h1>
-      <p><%= blogDate %></p>
+    <h1>My blogs</h1>
+    <a href="/blog/create-blog"> <button>Upload a blog</button></a>
 
-      <p><%= blogDesc %></p>
+    <% if(blogs.length > 0 || blogs === undefined) { %> <% blogs.forEach(blog =>
+    { %>
+    <div>
+      <a href="/blog/<%= blog.id %>">
+        <h2><%= blog.title %></h2>
+        <p><%= blog.createdAt %></p></a
+      >
+      <p><%= blog.snippet %></p>
+
+      <p><%= blog.body %></p>
     </div>
+    <% }) %> <% } else { %>
+    <p>There are no blogs available for now!</p>
+    <% } %>
   </body>
 </html>
