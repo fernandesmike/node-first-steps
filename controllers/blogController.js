@@ -29,7 +29,9 @@ const blog_details = async (req, res) => {
     const retrievedBlog = await Blog.findById(id);
     res.render("details", { blog: retrievedBlog, title: "Blog details" });
   } catch (err) {
-    console.log(err);
+    res
+      .status(404)
+      .render("404", { message: "Blog has been removed or does not exist!" });
   }
 };
 
