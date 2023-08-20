@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create</title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <button>Help me change</button>
+
+    <!-- The structure is crazy, review! -->
+    <!-- BRO, THIS SHIT IS CRAZY, WE NEED REACT -->
+    <% if(paragObj.length > 0) { %>
+        <% paragObj.forEach(parags => { %>
+            <p>Number <%= parags.id %>: <%= parags.content %></p>
+            <% }) %>
+    <% } else { %>
+        <p>There is no paragraphs available as of now!</p>
+    <% } %>
+    
+    
+  </body>
+</html>

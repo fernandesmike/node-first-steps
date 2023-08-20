@@ -1,40 +1,55 @@
+// Sample blog data
+const { blogTitle, blogDate, blogDesc } = require("./json/blogs");
+
 const express = require("express");
 
 // Create the express app
 const app = express();
 
-// Set some settings for the app
-app.set("view engin", "ejs");
+app.set("view engine", "ejs");
+app.set("views", "files");
 
-// Now, listen for requests
-// equivalent to createServer()
 app.listen(3000);
 
-// URL to listen to, and Callback that takes Request and Response object
+// Middlewares are just pieces of codes that run in the backend that intercepts between
+// incoming and outgoing HTTP objects
+app.use((req, res, next) => {
+  console.log("New request made");
+
+  // Without next(), the backend will get stuck in this use() method. It will never reach the code
+  // below, thus cannot handle requests that matches any of the get() methods below
+  next();
+});
+app.use((req, res, next) => {
+  console.log("New middleware after above");
+  // That is why order is important when using use() functions
+  next();
+  // This lets the code proceed to the next code below
+});
+
 app.get("/", (req, res) => {
-  // Automatically sets header
-  // Useful when sending raw texts
-  // res.send("<p> HOMEEE </p>");
-
-  // For sending  files
-  // Requires the file path, and root directory
-  res.sendFile("./files/index.html", { root: __dirname });
+  res.render("index", { heading: "My awesome title" });
 });
 
-app.get("/login", (req, res) => {
-  res.sendFile("./files/login.html", { root: __dirname });
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
-// For redirections
-app.get("/redirect", (req, res) => {
-  // Automatically sets the status code
-  res.redirect("/login");
+// Handler for create view
+app.get("/account/create", (req, res) => {
+  const paragObj = [
+    { id: "1", content: "Lorem ipsum dolor sit amet consectetur" },
+    { id: "2", content: "ipsum dolor consectetur" },
+    { id: "3", content: "Lorem ipsum dolor sit amet " },
+  ];
+  res.render("create", { title: "My awesome self", paragObj });
 });
 
-// What about with error 404 pages
-// Fires for every URL. It must be placed in the bottom to not overlap with other links
-// If none of the get(URL) methods above is catched, this will execute
+app.get("/blog", (req, res) => {
+  // Passing an exported data from another module
+  res.render("blog", { blogTitle, blogDate, blogDesc });
+});
+
 app.use((req, res) => {
-  // Specify that this is an error by specifying its status  code
-  res.status(404).sendFile("./files/404.html", { root: __dirname });
+  res.status(404).render("404");
 });
