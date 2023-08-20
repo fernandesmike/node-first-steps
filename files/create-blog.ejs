@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create blog</title>
+  </head>
+  <body>
+    <form action="/blog" method="post">
+      <h1>Create your blog</h1>
+
+      <h3>Title</h3>
+      <label for="title">Blog title</label>
+      <input type="text" name="title" id="title" />
+      <h3>Snippet</h3>
+      <label for="snippet">Snippet</label>
+      <input type="text" name="snippet" id="snippet" />
+      <h3>Body</h3>
+      <textarea
+        name="body"
+        id="body"
+        cols="30"
+        rows="10"
+        placeholder="Tell us something great..."
+      ></textarea>
+      <button type="submit">Upload my blog</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog details</title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div>
+      <h2><%= blog.title %></h2>
+      <p><%= blog.createdAt %></p>
+      <p><%= blog.snippet %></p>
+
+      <p><%= blog.body %></p>
+
+      <a href="/blog"><button>Go back</button></a>
+      <a class="delete" data-doc="<%= blog.id %>"
+        ><button>Delete blog</button></a
+      >
+    </div>
+
+    <script>
+      const remove = document.querySelector("a.delete");
+
+      remove.addEventListener("click", async (e) => {
+        const endpoint = `/blog/${remove.dataset.doc}`;
+
+        fetch(endpoint, { method: "DELETE" })
+          .then((result) => result.json())
+          .then((json) => {
+            window.location.href = json.redirect;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    </script>
+  </body>
+</html>
